@@ -20,14 +20,15 @@ count_parsimony <- function(tree, asr, occurrence = TRUE, transition_n = FALSE, 
     asr$states[asr[,i] == 1] <- i
   }
   asr$nodes <- 1:asr_nrow
+  tip_num <- 1:length(tree$tip.label)
   switch(type,
          all = {node_df <- as.data.frame(tree$edge)},
-         tips = {node_df <- as.data.frame(tree$edge[1:length(tree$tip.label),])},
-         inner_nodes = {node_df <- as.data.frame(tree$edge[(length(tree$tip.label) + 1):nrow(tree$edge),])})
+         tips = {node_df <- as.data.frame(tree$edge[tree$edge[,2] %in% tip_num,])},
+         inner_nodes = {node_df <- as.data.frame(tree$edge[!tree$edge[,2] %in% tip_num,])})
   node_df$left <- rep(NA, nrow(node_df))
   node_df$right <- rep(NA, nrow(node_df))
-  node_df$left <- asr$states[match(node_df$V1, asr$node)]
-  node_df$right <- asr$states[match(node_df$V2, asr$node)]
+  node_df$left <- asr$states[match(node_df$V1, asr$nodes)]
+  node_df$right <- asr$states[match(node_df$V2, asr$nodes)]
   transitions <- expand.grid(states, states, stringsAsFactors = FALSE)
   transitions <- transitions[transitions[,1] != transitions[,2],]
   for(i in 1:nrow(transitions)){
