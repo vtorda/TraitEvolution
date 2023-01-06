@@ -7,7 +7,7 @@ Usage:
 
 tree - a phy object
 
-asr - a data.frame or matrix containing ASR data for every node and tip in the tree object. The order of the rows are important. It has to start with the tip states than the node states, ordered as the phy objectum. It has to be as many columns as many states used in ASR analysis.
+asr - a data.frame or matrix containing ASR data for every nodes and tips in the tree object. The order of the rows are important. It has to start with the tip states than the node states, ordered as the phy object. It has to be as many columns as many states used in ASR analysis.
 
 occurrence - logical, whether to calculate the number of occurence of a state through the phylogeny
 
